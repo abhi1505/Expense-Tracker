@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Income:</strong>
+  <%= @user.income %>
+</p>
+<hr>
+<h2>Expenses</h2>
+<% @user.expenses.each do |expense| %>
+  <p>
+    <strong>Title:</strong>
+    <%= expense.title %>
+  </p>
+ 
+  <p>
+    <strong>Amount:</strong>
+    <%= expense.amount %>
+  </p>
+  
+  <p>
+  <%= link_to 'Delete Expense', [expense.user, expense],
+               method: :delete,
+               data: { confirm: 'Are you sure?' } %>
+	</p>
+  <hr>
+<% end %>
+<hr>
+<h2>Add an expense:</h2>
+<%= form_with(model: [ @user, @user.expenses.build ], local: true) do |form| %>
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </p>
+  <p>
+    <%= form.label :amount %><br>
+    <%= form.text_field :amount %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
